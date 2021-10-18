@@ -1,9 +1,30 @@
 package co.edu.usa.tufinca.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+import java.util.Optional;
 
-import co.edu.usa.tufinca.entidades.Farm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-public interface FarmRepository extends CrudRepository<Farm,Long>{
+import co.edu.usa.tufinca.entities.Farm;
+import co.edu.usa.tufinca.repository.crud.FarmCrudRepository;
+
+
+@Repository
+public class FarmRepository {  
     
+    @Autowired
+    private FarmCrudRepository farmCrudRepository;
+
+    public List<Farm> getAll(){
+        return (List<Farm>) farmCrudRepository.findAll();
+    }
+
+    public Optional<Farm> getFarm(int id){
+        return farmCrudRepository.findById(id);
+    }
+
+    public Farm save(Farm s){
+        return farmCrudRepository.save(s);
+    }
 }

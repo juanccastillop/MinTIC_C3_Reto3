@@ -1,4 +1,4 @@
-package co.edu.usa.tufinca.entidades;
+package co.edu.usa.tufinca.entities;
 
 import java.io.Serializable;
 
@@ -9,19 +9,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Farms")
+@Table(name="farms")
 public class Farm implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String address;
-    private Double exension;
+    private Double extension;
     private String name;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getAddress() {
@@ -30,11 +30,11 @@ public class Farm implements Serializable{
     public void setAddress(String address) {
         this.address = address;
     }
-    public Double getExension() {
-        return exension;
+    public Double getExtension() {
+        return extension;
     }
-    public void setExension(Double exension) {
-        this.exension = exension;
+    public void setExtension(Double exension) {
+        this.extension = exension;
     }
     public String getName() {
         return name;
