@@ -1,33 +1,31 @@
 package co.edu.usa.tufinca.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="farms")
-public class Farm implements Serializable{
+@Table(name="category")
+public class Category implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String address;
-    private Double extension;
     private String name;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name="category")
-    @JsonIgnoreProperties("farms")
-    private Category category;
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "category")
+    @JsonIgnoreProperties("category")
+    public List<Farm> farms;
 
     public Integer getId() {
         return id;
@@ -36,24 +34,6 @@ public class Farm implements Serializable{
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Double getExtension() {
-        return extension;
-    }
-
-    public void setExtension(Double extension) {
-        this.extension = extension;
-    }
-
-    // se borra set a get category
 
     public String getName() {
         return name;
@@ -71,13 +51,13 @@ public class Farm implements Serializable{
         this.description = description;
     }
 
-    public Category getCategory() {
-        return category;
+    public List<Farm> getFarms() {
+        return farms;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setFarms(List<Farm> farms) {
+        this.farms = farms;
     }
 
-        
+    
 }
