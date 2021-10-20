@@ -19,24 +19,61 @@ public class FarmService {
         return farmRepository.getAll();
     }
 
-    public Optional<Farm> getFarm(int id){
-        return farmRepository.getFarm(id);
+    public Optional<Farm> getFarm(int fincaId){
+        return farmRepository.getFarm(fincaId);
     }
 
-    public Farm save(Farm f){
+    public Farm save(Farm finca){
         
-        if(f.getId()==null){
-            return farmRepository.save(f);
+        if(finca.getId()==null){
+            return farmRepository.save(finca);
         }
         else{
-            Optional<Farm> farmaux=farmRepository.getFarm(f.getId());
+            Optional<Farm> farmaux=farmRepository.getFarm(finca.getId());
             if(farmaux.isEmpty()){
-                return farmRepository.save(f);
+                return farmRepository.save(finca);
             }
             else{
-                return f;
+                return finca;
             }
         }
 
+    }
+
+    public Farm update(Farm finca){
+        if(finca.getId()!=null){
+            Optional<Farm> farmaux=farmRepository.getFarm(finca.getId());
+            if(!farmaux.isEmpty()){
+                if(finca.getName()!=null){
+                    farmaux.get().setName(finca.getName());
+                }
+                if(finca.getAddress()!=null){
+                    farmaux.get().setAddress(finca.getAddress());
+                }
+                if(finca.getExtension()!=null){
+                    farmaux.get().setExtension(finca.getExtension());
+                }
+                if(finca.getDescription()!=null){
+                    farmaux.get().setDescription(finca.getDescription());
+                }
+                if(finca.getCategory()!=null){
+                    farmaux.get().setCategory(finca.getCategory());
+                }
+                farmRepository.save(farmaux.get());
+                return farmaux.get();
+            }else{
+                return finca;
+            }
+        }else{
+            return finca;
+        }
+    }
+
+    public boolean deleteBike(int fincaId) {
+        Boolean aBoolean = getFarm(fincaId).map(finca -> {
+            farmRepository.delete(finca);
+            return true;
+        }).orElse(false);
+        return aBoolean;
     }
 }

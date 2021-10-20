@@ -20,12 +20,16 @@ public class FarmRepository {
         return (List<Farm>) farmCrudRepository.findAll();
     }
 
-    public Optional<Farm> getFarm(int id){
-        return farmCrudRepository.findById(id);
+    public Optional<Farm> getFarm(int farmId){
+        return farmCrudRepository.findById(farmId);
     }
 
-    public Farm save(Farm s){
-        return farmCrudRepository.save(s);
+    public Farm save(Farm finca){
+        return farmCrudRepository.save(finca);
+    }
+
+    public void delete(Farm finca){
+        farmCrudRepository.delete(finca);
     }
     
 }

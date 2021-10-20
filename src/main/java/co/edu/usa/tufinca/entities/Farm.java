@@ -1,19 +1,22 @@
 package co.edu.usa.tufinca.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="farms")
+@Table(name="farms_tb")
 public class Farm implements Serializable{
 
     @Id
@@ -28,6 +31,14 @@ public class Farm implements Serializable{
     @JoinColumn(name="category")
     @JsonIgnoreProperties("farms")
     private Category category;
+
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "farm")
+    @JsonIgnoreProperties({"farm", "client"})
+    private List<Message> messages;
+
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "farm")
+    @JsonIgnoreProperties({"farm", "client"})
+    private List<Reservation> reservations;
 
     public Integer getId() {
         return id;
@@ -53,8 +64,6 @@ public class Farm implements Serializable{
         this.extension = extension;
     }
 
-    // se borra set a get category
-
     public String getName() {
         return name;
     }
@@ -79,5 +88,20 @@ public class Farm implements Serializable{
         this.category = category;
     }
 
-        
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
 }

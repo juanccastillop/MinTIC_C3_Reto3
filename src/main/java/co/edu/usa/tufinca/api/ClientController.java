@@ -17,42 +17,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.usa.tufinca.entities.Farm;
-import co.edu.usa.tufinca.services.FarmService;
+import co.edu.usa.tufinca.entities.Client;
+import co.edu.usa.tufinca.services.ClientService;
 
 @RestController
-@RequestMapping("/api/Farm")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
-public class FarmController {
-
-    @Autowired
-    private FarmService farmService;
+@RequestMapping("/api/Client")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+public class ClientController {
     
+    @Autowired
+    private ClientService clientService;
+  
     @GetMapping("/all")
-    public List<Farm> getFarms(){
-        return farmService.getAll();
+    public List<Client> getClients(){
+        return clientService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Farm> getFarm(@PathVariable("id") int farmid){
-        return farmService.getFarm(farmid);
+    public Optional<Client> getClient(@PathVariable("id") int clientId) {
+        return clientService.getClient(clientId);
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Farm save(@RequestBody Farm farmjson){
-        return farmService.save(farmjson);
+    public Client save(@RequestBody Client clientjson) {
+        return clientService.save(clientjson);
     }
-
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Farm update(@RequestBody Farm farmjson) {
-        return farmService.update(farmjson);
+    public Client update(@RequestBody Client clientjson) {
+        return clientService.update(clientjson);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable("id") int farmId) {
-        return farmService.deleteBike(farmId);
-    } 
+    public boolean delete(@PathVariable("id") int clientId) {
+        return clientService.deleteClient(clientId);
+    }
 }

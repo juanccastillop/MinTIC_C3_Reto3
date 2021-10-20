@@ -17,42 +17,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.usa.tufinca.entities.Farm;
-import co.edu.usa.tufinca.services.FarmService;
+import co.edu.usa.tufinca.entities.Reservation;
+import co.edu.usa.tufinca.services.ReservationService;
 
 @RestController
-@RequestMapping("/api/Farm")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
-public class FarmController {
-
-    @Autowired
-    private FarmService farmService;
+@RequestMapping("/api/Reservation")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+public class ReservationController {
     
+    @Autowired
+    private ReservationService reservationService;
     @GetMapping("/all")
-    public List<Farm> getFarms(){
-        return farmService.getAll();
+    public List<Reservation> getReservations(){
+        return reservationService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Farm> getFarm(@PathVariable("id") int farmid){
-        return farmService.getFarm(farmid);
+    public Optional<Reservation> getReservation(@PathVariable("id") int reservationId) {
+        return reservationService.getReservation(reservationId);
     }
-
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Farm save(@RequestBody Farm farmjson){
-        return farmService.save(farmjson);
+    public Reservation save(@RequestBody Reservation reservationjson) {
+        return reservationService.save(reservationjson);
     }
-
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Farm update(@RequestBody Farm farmjson) {
-        return farmService.update(farmjson);
+    public Reservation update(@RequestBody Reservation reservationjson) {
+        return reservationService.update(reservationjson);
     }
-
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable("id") int farmId) {
-        return farmService.deleteBike(farmId);
-    } 
+    public boolean delete(@PathVariable("id") int reservationId) {
+        return reservationService.deleteReservation(reservationId);
+    }
 }

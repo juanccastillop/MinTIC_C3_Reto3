@@ -18,24 +18,48 @@ public class CategoryService {
     public List<Category> getAll(){
         return categoryRepository.getAll();
     }
-    public Optional<Category> getCategory(int id){
-        return categoryRepository.getCategory(id);
+    public Optional<Category> getCategory(int categoriaId){
+        return categoryRepository.getCategory(categoriaId);
     }
 
-    public Category save(Category cat){
+    public Category save(Category categoria){
         
-        if(cat.getId()==null){
-            return categoryRepository.save(cat);
+        if(categoria.getId()==null){
+            return categoryRepository.save(categoria);
         }
         else{
-            Optional<Category> cataux=categoryRepository.getCategory(cat.getId());
+            Optional<Category> cataux=categoryRepository.getCategory(categoria.getId());
             if(cataux.isEmpty()){
-                return categoryRepository.save(cat);
+                return categoryRepository.save(categoria);
             }
             else{
-                return cat;
+                return categoria;
             }
         }
+    }
+
+    public Category update(Category categoria){
+        if(categoria.getId()!=null){
+            Optional<Category>cataux=categoryRepository.getCategory(categoria.getId());
+            if(!cataux.isEmpty()){
+                if(categoria.getDescription()!=null){
+                    cataux.get().setDescription(categoria.getDescription());
+                }
+                if(categoria.getName()!=null){
+                    cataux.get().setName(categoria.getName());
+                }
+                return categoryRepository.save(cataux.get());
+            }
+        }
+        return categoria;
 
     }
+    public boolean deletecategoria(int categoriaId){
+        Boolean d=getCategory(categoriaId).map(categoria -> {
+            categoryRepository.delete(categoria);
+            return true;
+        }).orElse(false);
+        return d;
+    }
+
 }

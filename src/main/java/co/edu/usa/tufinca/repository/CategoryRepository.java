@@ -19,12 +19,16 @@ public class CategoryRepository {
         return (List<Category>) categoryCrudRepository.findAll();
     }
 
-    public Optional<Category> getCategory(int id){
-        return categoryCrudRepository.findById(id);
+    public Optional<Category> getCategory(int categoryId){
+        return categoryCrudRepository.findById(categoryId);
     }
 
     public Category save(Category cat){
         return categoryCrudRepository.save(cat);
+    }
+
+    public void delete(Category cat){
+        categoryCrudRepository.delete(cat);
     }
 
 }

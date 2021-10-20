@@ -17,42 +17,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.usa.tufinca.entities.Farm;
-import co.edu.usa.tufinca.services.FarmService;
+import co.edu.usa.tufinca.entities.Message;
+import co.edu.usa.tufinca.services.MessageService;
 
 @RestController
-@RequestMapping("/api/Farm")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
-public class FarmController {
-
-    @Autowired
-    private FarmService farmService;
+@RequestMapping("/api/Message")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+public class MessageController {
     
+    @Autowired
+    private MessageService messageService;
     @GetMapping("/all")
-    public List<Farm> getFarms(){
-        return farmService.getAll();
+    public List<Message> getMessages(){
+        return messageService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Farm> getFarm(@PathVariable("id") int farmid){
-        return farmService.getFarm(farmid);
+    public Optional<Message> getMessage(@PathVariable("id") int messageId) {
+        return messageService.getMessage(messageId);
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Farm save(@RequestBody Farm farmjson){
-        return farmService.save(farmjson);
+    public Message save(@RequestBody Message messagejson) {
+        return messageService.save(messagejson);
     }
-
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Farm update(@RequestBody Farm farmjson) {
-        return farmService.update(farmjson);
+    public Message update(@RequestBody Message messagejson) {
+        return messageService.update(messagejson);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable("id") int farmId) {
-        return farmService.deleteBike(farmId);
-    } 
+    public boolean delete(@PathVariable("id") int messageId) {
+        return messageService.deleteMessage(messageId);
+    }
 }
