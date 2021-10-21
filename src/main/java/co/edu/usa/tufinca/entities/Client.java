@@ -20,9 +20,9 @@ public class Client implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClient;
-    private String name;
-    private String password;
     private String email;
+    private String password;
+    private String name;   
     private Integer age;
 
     @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "client")
@@ -41,12 +41,12 @@ public class Client implements Serializable{
         this.idClient = idClient;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -57,12 +57,12 @@ public class Client implements Serializable{
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getAge() {
@@ -89,6 +89,6 @@ public class Client implements Serializable{
         this.reservations = reservations;
     }
 
-    
+        
 }
 
